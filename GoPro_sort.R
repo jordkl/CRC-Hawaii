@@ -7,7 +7,7 @@ library(RODBC)
 library(filesstrings)
 
 #directory to video files
-directoryGopro <- "D:/2020FEBKauai/GoPro"
+directoryGopro <- "E:\\2020FEBKauai\\GoPro"
 
 #get file list
 files <- list.files(directoryGopro, recursive=TRUE, full.names=TRUE)
@@ -20,7 +20,7 @@ exportGoPro <- exifinfo %>%
   mutate(CreateDate = ymd_hms(CreateDate, tz = "HST"))
 
 #Read sightings file
-db <- "D:/2020FEBKauai/Hawaii sighting database_Feb2020v1.accdb"
+db <- "\\\\CRCdata1\\RedirectedFolders\\jlerma\\Desktop\\2020FEBKauai\\Hawaii sighting database_Feb2020v1.accdb"
 con <- odbcConnectAccess2007(db)
 
 sightings <- sqlFetch(con,"Sighting and Permit info", as.is = TRUE) %>%
@@ -56,3 +56,6 @@ move_files(vids$SourceFile, destinations = dest)
   #Check serial number for files being filtered out
   #Check exif file for jpg - creation date?
   #standardize for use in future field projects
+  #check move files to make sure it copies instead of cuts
+  #make error message more specific date range
+  #make options at top of code for generalization: filter by project start date, database location
